@@ -655,7 +655,7 @@ while running:
                                     previous_music = current_music
                                     play_music("creepy_sound.mp3")
                                     dialogue_music_played = True
-                                gif_right.set_path(get_asset("Player", "SpriteTetePnj.gif"), frame_duration=100)
+                                gif_right.set_path(get_asset("Player", "SpriteTetePnj.gif"), frame_duration=200)
 
 
 
@@ -1186,3 +1186,4 @@ if video_cap:
     video_cap.release()
 pygame.quit()
 sys.exit()
+
