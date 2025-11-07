@@ -1,0 +1,128 @@
+{
+    "Canard1":{"data":[[
+        "Kwak",
+        "???"
+    ],[
+        "Qui etes-vous ?",
+        "Dorlis"
+    ],[
+        "...",
+        "???"
+    ],[
+        "Kwak Kwak",
+        "???"
+    ],[
+        "C'est juste un canard...",
+        "Dorlis"
+    ],[
+        "Tu t'attendais à quoi en parlant à un canard ?",
+        "???"
+    ],[
+        "Tu parles ???",
+        "Dorlis"
+    ],[
+        "Kwak on peut même plus faire de blagues aux étrangers ?",
+        "???"
+    ],[
+        "Je suis Herbert le canard du lac (kwak)",
+        "Herbert"
+    ],[
+        "Ici il n'existe qu'une seule activité : la pêche !",
+        "Herbert"
+    ],[
+        "Mmmh je vois que tu n'as pas encore de Canne.",
+        "Herbert"
+    ],[
+        "J'ai pêché la mienne la semaine dernière kwak.",
+        "Herbert"
+    ],[
+        "Comment je peux m'en procurer une ?",
+        "Dorlis"
+    ],[
+        "C'est assez simple pour en avoir une kwak.",
+        "Herbert"
+    ],[
+        "Il faut la repérer dans le lac et aller l'aborder",
+        "Herbert"
+    ],[
+        "...",
+        "Dorlis"
+    ],[
+        "Aaaaah tu veux parler d'une canne à pêche ?",
+        "Herbert"
+    ],[
+        "Essaie de rassembler des matériaux et rapporte-les.",
+        "Herbert"
+    ]],
+    "Active_quete": "Fabriquer la canne à pêche"},
+
+    "Canard2":{"data":[[
+            "T'as pas écouté ?",
+            "Herbert"
+        ],[
+            "Non",
+            "Dorlis"
+        ],[
+            "Essaie de rassembler des matériaux et rapporte-les.",
+            "Herbert"
+    ]],
+    "Active_quete":"Aucune"},
+    
+    "Canard3":{"data":[[
+            "Parfait !",
+            "Herbert"
+        ],[
+            "Voici ta toute première canne (à pêche)",
+            "Herbert"
+        ],[
+            "Va au bord de l'eau et lance ta ligne.",
+            "Herbert"
+        ],[
+            "Ensuite une fois que tu as une prise,",
+            "Herbert"
+        ],[
+            "Va au village du COIN à l'Ouest et essaie de le vendre",
+            "Herbert"
+        ]],
+        "Active_quete":"Pecher son premier poisson"},
+
+    "Canard4":{"data":[[
+            "Kwak",
+            "Herbert"
+        ]],
+        "Active_quete":"Aucune"},
+
+    "Shop0":{"data":[[
+            "T'as pas de poiscaille ?",
+            "MR. Poilu"
+        ],[
+            "J'achète du poisson moi, j'ai d'autres chats à fouetter",
+            "MR. Poilu"
+        ]],
+        "Active_quete":"Aucune"},
+
+    "Shop1":{"data":[[
+            "Salut l'ami",
+            "MR. Poilu"
+        ],[
+            "Vous achetez du poisson ?",
+            "Dorlis"
+        ],[
+            "J'ai l'air d'acheter de l'herbe à chat ?",
+            "MR. Poilu"
+        ],[
+            "Je reprend tout ce qui vit sous l'eau",
+            "MR. Poilu"
+        ]],
+        "Active_quete":"Aucune"},
+
+    "Shop2":{"data":[[
+            "Alors t'as du poiscaille à m'vendre ?",
+            "MR. Poilu"
+    ]],
+        "Active_quete":"Aucune"}
+        
+    
+}
+
+

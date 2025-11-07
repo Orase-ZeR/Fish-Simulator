@@ -1,0 +1,14 @@
+{
+    "Fabriquer la canne à pêche":{
+        "description_quest":"Trouvez 2 batons et une ficelle pour pouvoir faire une canne à pêche.",
+        "required_items_quest":[["stick", 0, 2], ["string", 0, 1]],
+        "reward_quests":[["fishing rod", 1]],
+        "finish":"False"
+    },
+    "Pecher son premier poisson":{
+        "description_quest":"blablablablabla",
+        "required_items_quest":[["Poisson_Bar", 0, 1]],
+        "reward_quests":[["Poisson_Rouge", 2]],
+        "finish":"False"
+    }
+}
