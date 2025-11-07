@@ -817,7 +817,7 @@ while running:
         if not show_controls:
             # Boutons Jouer / Quitter visibles
             bouton_width, bouton_height = 200, 200
-            bouton_x = window_size[0] // 2 - bouton_width // 2
+            bouton_x = window_size[0] // 2 - bouton_width // 2 - 20
             bouton_y = window_size[1] // 2 - bouton_height // 2
             espacement = 20
 
