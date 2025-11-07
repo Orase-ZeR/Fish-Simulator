@@ -622,6 +622,10 @@ while running:
                             if zone == "port":
                                 if pecher_quest and pecher_quest["finish"]:
                                     dialogue_active = dialogue.active_dialogue("Canard4")
+
+                                elif quest.get_name() == "Pecher son premier poisson" and not quest.quests[quest.name_quest]["finish"]:
+                                    dialogue_active = dialogue.active_dialogue("Canard5")
+                                        
                                 elif quest.get_name() == "Fabriquer la canne à pêche" and quest.quests[quest.name_quest]["finish"]:
                                     dialogue_active = dialogue.active_dialogue("Canard3")
                                     inventory_list[0].clear_inventory()
@@ -651,7 +655,7 @@ while running:
                                     previous_music = current_music
                                     play_music("creepy_sound.mp3")
                                     dialogue_music_played = True
-                                gif_right.set_path(get_asset("Player", "SpriteTetePnj.gif"), frame_duration=100)
+                                gif_right.set_path(get_asset("Player", "SpriteTetePnj.gif"), frame_duration=200)
 
 
 
@@ -1182,3 +1186,4 @@ if video_cap:
     video_cap.release()
 pygame.quit()
 sys.exit()
+
