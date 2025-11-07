@@ -622,6 +622,10 @@ while running:
                             if zone == "port":
                                 if pecher_quest and pecher_quest["finish"]:
                                     dialogue_active = dialogue.active_dialogue("Canard4")
+
+                                elif quest.get_name() == "Pecher son premier poisson" and not quest.quests[quest.name_quest]["finish"]:
+                                    dialogue_active = dialogue.active_dialogue("Canard5")
+                                        
                                 elif quest.get_name() == "Fabriquer la canne à pêche" and quest.quests[quest.name_quest]["finish"]:
                                     dialogue_active = dialogue.active_dialogue("Canard3")
                                     inventory_list[0].clear_inventory()

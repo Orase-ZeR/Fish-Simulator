@@ -87,7 +87,16 @@
         "Active_quete":"Pecher son premier poisson"},
 
     "Canard4":{"data":[[
-            "Kwak",
+            "Parfait!",
+            "Herbert"
+        ],[
+            "Maitenant tu peux pecher tout les poissons de la region pour les vendre",
+            "Herbert"
+        ]],
+        "Active_quete":"Aucune"},
+
+    "Canard5":{"data":[[
+            "Retourne me voir quand tu auras peché un bar commun.",
             "Herbert"
         ]],
         "Active_quete":"Aucune"},
