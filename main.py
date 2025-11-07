@@ -710,7 +710,7 @@ while running:
         # Vérifie si le joueur est dans une zone de pêche
         player_is_in_fishing_zone = Fishing_zone_interaction.is_in_fishing_zone(
             pygame.Rect(player.x, player.y, player_size, player_size)
-        )
+        ) if quest.get_name() == 'Pecher son premier poisson' else False
 
         # Supprime toujours l’ancien sprite avant de recréer
         liste_sprite = supprimer_sprite("Sprite Interaction", liste_sprite)
@@ -744,7 +744,7 @@ while running:
 
         # vérifie les zones
         in_dialogue = Dialogue_zone_interaction.player_is_in_dialogue_zone(player.rect)
-        in_fishing = Fishing_zone_interaction.is_in_fishing_zone(player.rect) and not player_is_fishing
+        in_fishing = (Fishing_zone_interaction.is_in_fishing_zone(player.rect) and not player_is_fishing) if quest.get_name() == 'Pecher son premier poisson' else False
 
         if (in_dialogue or in_fishing) and gif_frames:
             gif_frame_timer, gif_frame_index = player.maybe_draw_interaction_gif(
@@ -1096,7 +1096,7 @@ while running:
 
     for k, poisson in list(enumerate(liste_sprite_fish)):
         fish_obj = poisson[1]
-        if player.rect.colliderect(fish_obj.rect):
+        if player.rect.colliderect(fish_obj.rect) and quest.quests != {}:
             
 
             # Construire l'Item correspondant au poisson (comme tu le fais lors de la pêche)
