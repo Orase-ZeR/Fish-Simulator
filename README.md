@@ -37,7 +37,7 @@ python --version
 
 ## ⚙️ Installation
 
-### 2️⃣ Télécharger le ZIP
+### 📦 Télécharger le ZIP
 
 - Rendez-vous sur le dépôt GitHub : [Fish-Simulator](https://github.com/Orase-ZeR/Fish-Simulator)  
 - Cliquez sur **Code → Download ZIP**  
@@ -99,6 +99,7 @@ Toute contribution, idée ou retour est bienvenu.
 - Gaetan F. - #Beta tester  
 - Gabriel Bruet - #Graphiste  
 - David Abdel - #Sound designer  
+
 
 
 
