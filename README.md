@@ -48,7 +48,9 @@ python --version
 ```bash
 git clone https://github.com/Orase-ZeR/Fish-Simulator.git
 ```
-
+```bash
+cd Fish-Simulator
+```
 Installe les dépendances automatiquement:
 
   - Sur Windows :
@@ -99,6 +101,7 @@ Toute contribution, idée ou retour est bienvenu.
 - Gaetan F. - #Beta tester  
 - Gabriel Bruet - #Graphiste  
 - David Abdel - #Sound designer  
+
 
 
 
