@@ -927,9 +927,10 @@ while running:
                 if current_zone != last_zone:
                     pygame.mixer.music.stop()
                     if current_zone == "village":
-                        play_music("village.ogg")
+                        current_music = "village.ogg"
                     else:
-                        play_music("valley_sound.mp3")
+                        current_music = "valley_sound.mp3"
+                    play_music(current_music)
                     last_zone = current_zone
             # center la caméra sur le joueur
             map_group.center(player.rect.center)
@@ -1212,5 +1213,6 @@ if video_cap:
     video_cap.release()
 pygame.quit()
 sys.exit()
+
 
 
