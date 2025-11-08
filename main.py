@@ -236,10 +236,10 @@ def play_music(Musique):
         pygame.mixer.music.set_volume(0.2)
         current_music = Musique
 
-def play_sound(Sound):
-        pygame.mixer.music.load(os.path.join(BASE_DIR, "assets", "music", Sound))
-        pygame.mixer.music.play()
-        pygame.mixer.music.set_volume(0.2)
+def play_sound(sound_name, volume=0.2):
+    sound = pygame.mixer.Sound(os.path.join(BASE_DIR, "assets", "music", sound_name))
+    sound.set_volume(volume)
+    sound.play()
 
 # --- Bouton image ---
 def image_button(surface, x, y, image_name, scale=2):
@@ -669,8 +669,7 @@ while running:
 
 
             elif event.key == K_e and player_is_in_fishing_zone and can_fish:
-                # appel de la logique de pêche (garde les mêmes signatures que toi)
-                
+                play_sound("fishingrod_whoosh.mp3")
                 rarity, player_is_fishing, sprite_barre, sprite_rarity, sprite_selector, fail = Fishing_zone_interaction.in_progess_fishing(
                     rarity,
                     player_is_fishing,
@@ -1213,4 +1212,5 @@ if video_cap:
     video_cap.release()
 pygame.quit()
 sys.exit()
+
 
