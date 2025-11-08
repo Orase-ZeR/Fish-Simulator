@@ -44,7 +44,7 @@ git clone https://github.com/Orase-ZeR/Fish-Simulator
 
 Entre dans le dossier :
 ```bash
-cd FISHSIM
+cd Fish-Simulator
 ```
 
 Installe les dépendances :
@@ -98,5 +98,6 @@ Toute contribution, idée ou retour est bienvenu.
 - Gaetan F. - #Beta tester  
 - Gabriel Bruet - #Graphiste  
 - David Abdel - #Sound designer  
+
 
 
