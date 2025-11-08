@@ -201,6 +201,7 @@ cursor = Cursor()
 search_bar = None
 show_inventory = False  # afficher/inventaire ouvert avec 'I'
 sprite_selector_I = None
+quest_finish = False
 
 liste_sprite = []
 liste_sprite_fish = []
@@ -628,6 +629,7 @@ while running:
                             if zone == "port":
                                 if pecher_quest and pecher_quest["finish"]:
                                     dialogue_active = dialogue.active_dialogue("Canard4")
+                                    quest_finish = True
 
                                 elif quest.get_name() == "Pecher son premier poisson" and not quest.quests[quest.name_quest]["finish"]:
                                     dialogue_active = dialogue.active_dialogue("Canard5")
@@ -1155,7 +1157,7 @@ while running:
                 pass
     
 
-    if quest.quests == {} and not menu:
+    if quest.quests == {} and not menu or quest_finish:
         liste_sprite_quete = supprimer_sprite("Image_Quete", liste_sprite_quete)
 
     elif not menu:
