@@ -893,7 +893,8 @@ while running:
                 "ZQSD : Déplacement",
                 "E : Interagir",
                 "I : Inventaire",
-                "ÉCHAP : Quitter le jeu",
+                "L : Ouvrir le journal",
+                "R : Rotation de l'inventaire",
             ]
             start_y = window_size[1] // 2 - (len(lignes) * 60) // 2
             for i, ligne in enumerate(lignes):
