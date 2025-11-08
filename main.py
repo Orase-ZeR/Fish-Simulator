@@ -872,6 +872,18 @@ while running:
             if image_button(fenetre, bouton_x, bouton_y + bouton_height + espacement, "bouton_quitter.png", scale=4):
                 running = False
 
+            warning_font = pygame.font.Font(font_path, 20)  # ou utilise ta police assets/DTM-Sans.otf
+            warning_text = "Mettez le jeu en plein écran avant de lancer la partie (WIP)"
+            warning_color = (255, 255, 0)  # jaune
+
+            # Calcul de la position pour centrer en bas
+            w, h = window_size
+            warning_surf = warning_font.render(warning_text, True, warning_color)
+            warning_pos = ((w - warning_surf.get_width()) // 2, h - warning_surf.get_height() - 20)
+
+            # Dessin du texte dans le render de ton menu / boucle title screen
+            fenetre.blit(warning_surf, warning_pos)    
+
         else:
             # --- Affichage du panneau de contrôles ---
             font_controls = pygame.font.Font(font_path, 60)

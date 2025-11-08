@@ -94,7 +94,7 @@ class Intro:
 
             # petit texte bas
             w, h = screen.get_size()
-            page_text = f"Page {page_idx+1}/{total_pages} - [clic / espace / → suivant, ← précédent, ESC quitter]"
+            page_text = f"Page {page_idx+1}/{total_pages} - [clic / espace / suivant]"
             page_surf = small_font.render(page_text, True, (180,180,180))
             screen.blit(page_surf, ((w - page_surf.get_width())//2, h - page_surf.get_height() - 20))
 
