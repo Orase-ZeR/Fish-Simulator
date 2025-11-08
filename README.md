@@ -45,7 +45,7 @@ Télécharge et installe Git pour Windows depuis le site officiel :
 
 ---
 
-### 2️⃣ Cloner le projet
+### 2️⃣ Cloner le projet ou installer le repositories
 
 ```bash
 git clone https://github.com/Orase-ZeR/Fish-Simulator.git
@@ -101,6 +101,7 @@ Toute contribution, idée ou retour est bienvenu.
 - Gaetan F. - #Beta tester  
 - Gabriel Bruet - #Graphiste  
 - David Abdel - #Sound designer  
+
 
 
 
