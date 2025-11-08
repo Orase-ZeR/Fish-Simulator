@@ -37,16 +37,14 @@ python --version
 
 ## ⚙️ Installation
 
-### 1️⃣ Installer Git
+### 2️⃣ Télécharger le ZIP
 
-Télécharge et installe Git pour Windows depuis le site officiel :  
+- Rendez-vous sur le dépôt GitHub : [Fish-Simulator](https://github.com/Orase-ZeR/Fish-Simulator)  
+- Cliquez sur **Code → Download ZIP**  
+- Décompressez le fichier ZIP dans le dossier de votre choix
 
-[Git pour Windows](https://git-scm.com/download/win)
 
----
-
-### 2️⃣ Cloner le projet ou installer le repositories
-
+### 2️⃣ Ou cloner le projet 
 ```bash
 git clone https://github.com/Orase-ZeR/Fish-Simulator.git
 ```
@@ -101,6 +99,7 @@ Toute contribution, idée ou retour est bienvenu.
 - Gaetan F. - #Beta tester  
 - Gabriel Bruet - #Graphiste  
 - David Abdel - #Sound designer  
+
 
 
 
