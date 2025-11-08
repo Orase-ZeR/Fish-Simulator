@@ -39,7 +39,7 @@ python --version
 
 Clone le projet :
 ```bash
-git clone https://github.com/<ton-utilisateur>/FISHSIM.git
+git clone https://github.com/Orase-ZeR/Fish-Simulator
 ```
 
 Entre dans le dossier :
@@ -98,3 +98,5 @@ Toute contribution, idée ou retour est bienvenu.
 - Gaetan F. - #Beta tester  
 - Gabriel Bruet - #Graphiste  
 - David Abdel - #Sound designer  
+
+
