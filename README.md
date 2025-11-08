@@ -51,9 +51,8 @@ Télécharge et installe Git pour Windows depuis le site officiel :
 git clone https://github.com/Orase-ZeR/Fish-Simulator.git
 ```
 
-Installe les dépendances :
+Installe les dépendances automatiquement:
 
-Automatiquement :
   - Sur Windows :
 ```
 install_batch-windows.bat
@@ -102,6 +101,7 @@ Toute contribution, idée ou retour est bienvenu.
 - Gaetan F. - #Beta tester  
 - Gabriel Bruet - #Graphiste  
 - David Abdel - #Sound designer  
+
 
 
 
