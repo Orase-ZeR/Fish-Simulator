@@ -1,4 +1,3 @@
-# intro.py
 import pygame
 from typing import List, Optional
 
@@ -14,8 +13,6 @@ class Intro:
     @staticmethod
     def render_multiline(surface: pygame.Surface, font: pygame.font.Font, lines: List[str],
                          color=(255,255,255), start_y=None, center_vertical=False, reserved_top=0):
-        """Rend une liste de lignes centrées horizontalement. 
-        Si center_vertical=True, centre verticalement dans l'espace restant sous reserved_top."""
         w, h = surface.get_size()
         rendered = [font.render(line, True, color) for line in lines]
         spacing = max(6, font.get_height() // 6)
@@ -54,7 +51,6 @@ class Intro:
             created_screen = True
 
         clock = pygame.time.Clock()
-        running = True
         page_idx = 0
         total_pages = len(pages)
 
@@ -62,6 +58,7 @@ class Intro:
         title_font = Intro.load_font(font_path, title_font_size)
         small_font = Intro.load_font(font_path, max(14, font_size // 3))
 
+        running = True
         while running:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -83,7 +80,7 @@ class Intro:
 
             screen.fill((0,0,0))
 
-            # render title en haut
+            # titre en haut
             reserved_top = 0
             if title:
                 title_surf = title_font.render(title, True, (255,255,255))
@@ -91,11 +88,11 @@ class Intro:
                 reserved_top = 50 + title_surf.get_height() + 20
                 screen.blit(title_surf, ((screen_width - title_surf.get_width()) // 2, 50))
 
-            # render current page centré dans l'espace restant sous le titre
-            cur_lines = pages[page_idx]
+            # texte centré sous titre
+            cur_lines = pages[page_idx] if page_idx < total_pages else []
             Intro.render_multiline(screen, font, cur_lines, center_vertical=True, reserved_top=reserved_top)
 
-            # petit texte en bas
+            # petit texte bas
             w, h = screen.get_size()
             page_text = f"Page {page_idx+1}/{total_pages} - [clic / espace / → suivant, ← précédent, ESC quitter]"
             page_surf = small_font.render(page_text, True, (180,180,180))
@@ -104,5 +101,6 @@ class Intro:
             pygame.display.flip()
             clock.tick(60)
 
+        # fermer proprement si écran temporaire créé
         if created_screen:
             pygame.display.quit()

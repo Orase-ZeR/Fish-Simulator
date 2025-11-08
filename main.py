@@ -11,6 +11,7 @@ import random
 import datetime
 from FISHlib.quest import *
 import cv2
+from FISHlib.intro_player import Intro
 
 pygame.init()
 
@@ -96,7 +97,12 @@ QUEST_BASE_SCALE = (1.0 / 6.5)
 
 # police des lettres sous les icônes : on calcule dynamiquement plus bas selon la fenêtre
 letter_font = None  # défini plus bas dans le code de draw (pour suivre le resize)
-
+pages = [
+    ["\"À force de prendre sans jamais donner,", "l’océan finit par réclamer ce qui lui appartient.\""],  # Citation
+    ["Endetté et entouré de rumeurs,", "il apprit l’existence d’un poisson légendaire."],
+    ["Sans attendre, il monta à bord de son petit bateau,", "laissant derrière lui le port familier."],
+    ["Alors qu’il approchait de l’île,", "un canard solitaire glissait sur l’eau,", "témoin muet de ce qui allait commencer."]
+]
 
 # état d'affichage du panneau quêtes
 show_quest_panel = False
@@ -829,6 +835,12 @@ while running:
             if image_button(fenetre, bouton_x, bouton_y, "bouton_jouer.png", scale=4):
                 tmx_path = get_asset("maps", "island.tmx")
                 map_layer = load_map(tmx_path, window_size, zoom=zoom_level)
+                Intro.intro_start(screen=fenetre,
+                  pages=pages,
+                  font_path=font_path,
+                  font_size=48,
+                  title="ACT I",
+                  title_font_size=96)
                 map_group = pyscroll.PyscrollGroup(map_layer=map_layer, default_layer=2)
                 map_group.add(player)
                 pygame.mixer.music.stop()
