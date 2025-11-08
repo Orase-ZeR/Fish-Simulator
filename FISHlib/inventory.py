@@ -1,4 +1,3 @@
-# program to create item inventory
 from operator import length_hint
 from signal import default_int_handler
 import pygame
@@ -17,8 +16,8 @@ ASSETS_DIR = os.path.join(BASE_DIR, "assets")
 new_path = os.path.dirname(BASE_DIR)
 
 win = pygame.display.set_mode(
-    (SCREENWIDTH, SCREENHEIGHT))  # sets size of the window
-pygame.display.set_caption("TEST")  # title of project
+    (SCREENWIDTH, SCREENHEIGHT)) 
+pygame.display.set_caption("TEST")  
 clock = pygame.time.Clock()
 
 FRAMES_DIR = "assets/Player/" 
@@ -35,14 +34,12 @@ def load_image(image_name):
     """
     return pygame.image.load(image_name).convert_alpha()
 
-# frames par rareté (assets à créer : frame_common.png, frame_rare.png, ...)
 RARITY_MAP = {
     "Commun": "common",
     "PeuCommun": "uncommon",
     "Rare": "rare",
     "Epic": "epic",
     "Legendaire": "legendary",
-    # ajoute d'autres si nécessaire
 }
 
 FRAMES = {}
@@ -57,14 +54,11 @@ def load_frames_from_folder(folder):
 
     files = os.listdir(folder)
 
-    # Exemple attendu : SpriteEmplacementInventaireRare2x2.png
     pattern = re.compile(
         r"SpriteEmplacementInventaire(Commun|PeuCommun|Rare|Epic|Legendaire)([0-9])x([0-9])\.png$",
         re.IGNORECASE
     )
 
-
-    # Fallback : SpriteEmplacementInventaireRare.png ou SpriteEmplacementInventaire.png (→ 1x1)
     pattern_fallback = re.compile(
         r".*SpriteEmplacementInventaire(Commun|PeuCommun|Rare|Epic|Legendaire)?\.(png|jpg|bmp)$",
         re.IGNORECASE
@@ -73,7 +67,6 @@ def load_frames_from_folder(folder):
     for f in files:
         path = os.path.join(folder, f)
 
-        # Match principal (avec taille explicite)
         m = pattern.match(f)
         if m:
             raw_rarity = m.group(1)
@@ -88,7 +81,6 @@ def load_frames_from_folder(folder):
                 print("Failed to load frame", path, e)
             continue
 
-        # Fallback : rareté sans taille (1x1)
         m2 = pattern_fallback.match(f)
         if m2:
             raw_rarity = m2.group(1)
@@ -101,23 +93,19 @@ def load_frames_from_folder(folder):
                 except Exception as e:
                     print("Failed to load fallback frame", path, e)
             else:
-                # Cas vraiment générique, sans rareté
                 try:
                     GENERIC_FRAME = load_image(path)
                 except Exception as e:
                     print("Failed to load generic frame", path, e)
             continue
 
-
-# appel
 load_frames_from_folder(FRAMES_DIR)
-# fallback
+
 if GENERIC_FRAME is None:
     GENERIC_FRAME = pygame.Surface((32, 32), pygame.SRCALPHA)
     GENERIC_FRAME.fill((255, 255, 255, 0))
 
 def get_frame_image(rarity, w, h):
-    # Traduit la rareté FR → EN si nécessaire
     if isinstance(rarity, str):
         r = RARITY_MAP.get(rarity, rarity).lower()
     else:
@@ -127,7 +115,6 @@ def get_frame_image(rarity, w, h):
     if key in FRAMES:
         return FRAMES[key]
 
-    # fallback sur variantes de taille
     for size_key in [(r, 1, 1), (r, w, 1), (r, 1, h)]:
         if size_key in FRAMES:
             return FRAMES[size_key]
@@ -181,7 +168,6 @@ ITEM_TEXTURES = {
     "amethyst_arrow": load_image("assets/items/amethyst_arrow.png"),
     "feather": load_image("assets/items/feather.png"),
     "bone_arrow": load_image("assets/items/bone_arrow.png"),
-    # si tu veux big_fish -> ajoute l'image dans assets/items/big_fish.png
 }
 ITEMS = {
     "grass": {"name": "Grass", "description": "It's some grass."},
@@ -196,7 +182,6 @@ ITEMS = {
     "Poisson_Rouge": {"name": "Poisson Rouge", "description": "Un petit poisson souvent gardé en bocal."},
     "Poisson_Diable_Noir": {"name": "Poisson Diable Noir", "description": "Un poisson abyssal terrifiant mais fascinant."},                    
     "Poisson_Monstre_Marin": {"name": "Monstre Marin", "description": "Une créature colossale rare et redoutée."}
-    # ... (garde ton dictionnaire d'origine)
 }
 
 WEAPONS = {
@@ -226,8 +211,6 @@ INVENTORY_SORTING_BUTTONS = {
     "type": load_image("assets/gui/sort_type.jpg"),
     "select": load_image("assets/gui/sort_select.png"),
 }
-
-# Search Bar assets
 SEARCH_BAR = {
     "left": load_image("assets/gui/search_left.png"),
     "middle": load_image("assets/gui/search_middle.png"),
@@ -314,7 +297,6 @@ class Cursor():
         self.pressed = pygame.mouse.get_pressed()
 
         if self.item is not None:
-            # draw held item at mouse (preview)
             if hasattr(self.item, "size"):
                 w, h = self.item.size
                 self.item.draw(self.position[0], self.position[1], 3, w, h)
@@ -344,15 +326,12 @@ class Cursor():
         else:
             image = pygame.transform.scale(CURSOR_ICONS["cursor"], (9 * 3, 10 * 3))
 
-        # draw cursor icon
         win.blit(image, (self.position[0], self.position[1]))
 
-        # --- afficher "R" au-dessus du curseur dès qu'on tient un item (peu importe stackable) ---
         if self.item is not None:
             text_img = FONT["16"].render("R", True, (255, 255, 255))
             tw, th = text_img.get_size()
-            cursor_w = 9 * 3  # largeur de l'icône de curseur telle qu'on l'a scalée plus haut
-            # centrer le "R" horizontalement au-dessus du curseur et le placer légèrement au-dessus
+            cursor_w = 9 * 3  
             tx = self.position[0] + cursor_w // 2 - tw // 2
             ty = self.position[1] - th - 4
             win.blit(text_img, (tx, ty))
@@ -366,17 +345,16 @@ class Item():
     def __init__(self, name, amount, size=(1,1), rarity="common", stackable=None) -> None:
         self.name = name
         self.amount = amount
-        self.size = size  # (w,h) in cells
+        self.size = size  
         self.rarity = rarity
         if stackable is None:
             self.stackable = True if size == (1,1) else False
         else:
             self.stackable = bool(stackable)
         self.type = "item"
-        self.rotated = False   # <-- flag rotation
+        self.rotated = False   
 
     def rotate(self) -> None:
-        # rotate only if multi-cell (ou si w!=h) — inutile pour stackable 1x1
         if self.stackable:
             return
         w, h = self.size
@@ -387,9 +365,7 @@ class Item():
         tex = ITEM_TEXTURES.get(self.name)
         if tex is None:
             return
-        # si l'item a été tourné, on tourne la texture (90°)
         tex_to_draw = tex
-        # Ne pas tourner les textures carrées, mais ça ne fait pas de mal non plus
         if self.rotated:
             tex_to_draw = pygame.transform.rotate(tex, 90)
 
@@ -455,7 +431,6 @@ class Cell():
         position = (x, y)
         cell_box = pygame.Rect(*position, 20 * scale, 20 * scale)
 
-        # --- DRAW BACKGROUND (éviter d'écraser la frame d'un occupier non-ancre) ---
         if self.occupier is not None:
             occ = self.occupier
             anchor_r, anchor_c = occ.anchor
@@ -466,17 +441,14 @@ class Cell():
                     image = self.draw(scale, 0)
                 win.blit(image, position)
             else:
-                # satellite cell : ne pas blitter la tile complète pour ne pas écraser la frame
                 pass
         else:
-            # cellule normale : dessiner fond sélectionné / non
             if cursor.box.colliderect(cell_box):
                 image = self.draw(scale, 1)
             else:
                 image = self.draw(scale, 0)
             win.blit(image, position)
 
-        # particules
         if len(self.particles) > 0:
             for p in list(self.particles):
                 p.update(x, y, scale)
@@ -486,13 +458,11 @@ class Cell():
                     except ValueError:
                         pass
 
-        # --- si cette cellule fait partie d'un occupier multi-slot ---
         if self.occupier is not None:
             occ = self.occupier
             anchor_r, anchor_c = occ.anchor
 
             if (row_idx, col_idx) == (anchor_r, anchor_c):
-                # draw frame first
                 frame_img = get_frame_image(occ.item.rarity, occ.w, occ.h) if occ.item is not None else GENERIC_FRAME
                 target_w = int(20 * scale * occ.w)
                 target_h = int(20 * scale * occ.h)
@@ -502,18 +472,13 @@ class Cell():
                     frame_scaled = pygame.transform.scale(GENERIC_FRAME, (target_w, target_h))
                 win.blit(frame_scaled, (x, y))
 
-                # then draw the item on top of the frame
                 if occ.item is not None:
                     occ.item.draw(x, y, scale, occ.w, occ.h)
 
                 else:
-                    # satellite cell : ne rien dessiner (l'item et son cadre sont déjà gérés par l’ancre)
                     pass
 
-            # interactions communes (clic sur n'importe quelle cellule de l'occupier)
-# interactions communes (clic sur n'importe quelle cellule de l'occupier)
             if cursor.box.colliderect(cell_box):
-                # show context tooltip (hover) for the whole occupier
                 if occ.item is not None:
                     cursor.context = Cursor_Context_Box(occ.item.get_name(), occ.item.get_description(), 0)
 
@@ -528,16 +493,12 @@ class Cell():
 
             return
 
-        # --- CELLULE SIMPLE (pas occupier) : logique originale pour item 1x1 ---
-        # --- CELLULE SIMPLE (pas occupier) : logique originale pour item 1x1 ---
         if self.item is not None:
-            # taille logique
             if hasattr(self.item, "size"):
                 w, h = self.item.size
             else:
                 w, h = (1, 1)
 
-            # draw frame first (pour que le centre transparent du cadre ne masque pas l'icône)
             rarity = getattr(self.item, "rarity", "common")
             frame_img = get_frame_image(rarity, w, h)
             target_w = int(20 * scale * w)
@@ -548,43 +509,30 @@ class Cell():
                 frame_scaled = pygame.transform.scale(GENERIC_FRAME, (target_w, target_h))
             win.blit(frame_scaled, (x, y))
 
-            # then draw the item icon ON TOP of the frame
             if (w, h) == (1, 1):
                 self.item.draw(*position, scale)
             else:
                 self.item.draw(*position, scale, w, h)
 
-            # interactions: si la souris n'est pas au-dessus, on sort
             if not cursor.box.colliderect(cell_box):
                 return
             if cursor.cooldown != 0:
                 return
 
-            # --- si on tient un item et qu'on essaie de le déposer sur une cellule occupée ---
             if cursor.item is not None:
-                # cas: on veut déposer un item multi-cell sur une cellule qui contient un 1x1
                 if hasattr(cursor.item, "size") and cursor.item.size != (1, 1):
-                    # tentative atomique de swap : on retire temporairement l'item existant,
-                    # on essaye place_item_at; si ça réussit -> swap (le 1x1 passe dans la main),
-                    # sinon on restaure l'ancienne cellule.
                     temp = self.item
-                    self.item = None  # libère la cellule temporairement pour la vérif
+                    self.item = None
                     placed = inventory_ref.place_item_at(cursor.item, row_idx, col_idx)
                     if placed:
-                        # placement réussi : on récupère l'ancien item dans la main (swap)
                         cursor.item = temp
                         self.particles.append(Dust())
                         cursor.set_cooldown()
                         return
                     else:
-                        # échec : restauration propre
                         self.item = temp
-                        # pas de cooldown, pas de particule
                 else:
-                    # cas: on tient un 1x1 (ou stackable) et la cellule est occupée par un 1x1
-                    # stacking possible ?
                     if hasattr(cursor.item, "size") and cursor.item.size == (1, 1) and self.item.stackable and cursor.item.name == self.item.name:
-                        # stacking si possible
                         if self.item.amount + cursor.item.amount <= stack_limit:
                             self.item.amount += cursor.item.amount
                             cursor.item = None
@@ -599,7 +547,6 @@ class Cell():
                                 self.particles.append(Dust())
                                 cursor.set_cooldown()
                                 return
-                    # sinon swap simple entre main et cellule (1x1 <-> 1x1)
                     temp = cursor.item.copy()
                     cursor.item = self.item
                     self.item = temp
@@ -607,7 +554,6 @@ class Cell():
                     cursor.set_cooldown()
                     return
 
-            # --- si on ne tient rien : interactions classiques (prendre / split / move) ---
             if cursor.item is None:
                 cursor.context = Cursor_Context_Box(self.item.get_name(), self.item.get_description(), 0 if True else 1)
                 if cursor.pressed[0] and cursor.move:
@@ -636,7 +582,6 @@ class Cell():
                     self.particles.append(Dust())
                     cursor.set_cooldown()
             else:
-                # on tient un item (déjà géré plus haut), mais ici on gère stacking / swap si nécessaire
                 if cursor.cooldown != 0:
                     return
                 if cursor.pressed[0] and cursor.item.name == self.item.name and self.item.amount + cursor.item.amount <= stack_limit and self.item.stackable:
@@ -657,7 +602,6 @@ class Cell():
                     self.particles.append(Dust())
                     cursor.set_cooldown()
 
-        # placement direct d'un item tenu dans une cellule vide
         elif cursor.item is not None and cursor.box.colliderect(cell_box) and cursor.cooldown == 0:
             if cursor.pressed[0]:
                 if hasattr(cursor.item, "size") and cursor.item.size != (1,1):
@@ -669,7 +613,6 @@ class Cell():
                         self.particles.append(Dust())
                         cursor.set_cooldown()
                 else:
-                    # placer un 1x1 dans une case vide
                     self.item = cursor.item
                     cursor.item = None
                     self.particles.append(Dust())
@@ -686,8 +629,6 @@ class Cell():
                 self.particles.append(Dust())
                 cursor.set_cooldown()
 
-
-        # placement direct d'un item tenu (drop)
         elif cursor.item is not None and cursor.box.colliderect(cell_box) and cursor.cooldown == 0:
             if cursor.pressed[0]:
                 if hasattr(cursor.item, "size") and cursor.item.size != (1,1):
@@ -779,8 +720,6 @@ class Inventory():
             for c in range(start_col, start_col + w):
                 cell = self.cells[r][c]
                 if cell.occupier is not None or cell.item is not None:
-                    # debug: print what's blocking
-                    # supprime/ commente cette ligne une fois le bug trouvé
                     print(f"can_place_at blocked at {(r,c)} item={cell.item is not None} occupier={cell.occupier is not None}")
                     return False
         return True
@@ -791,10 +730,8 @@ class Inventory():
         if not self.can_place_at(start_row, start_col, w, h):
             return False
         occ = Occupier(item, start_row, start_col, w, h)
-        # d'abord vérifier encore (sécurisé), puis écrire l'occ en une passe
         for r in range(start_row, start_row + h):
             for c in range(start_col, start_col + w):
-                # ASSURE : on efface item OR occupier qui traînait (ne devrait pas être le cas)
                 self.cells[r][c].item = None
                 self.cells[r][c].occupier = occ
         return True
@@ -808,7 +745,6 @@ class Inventory():
         item_copy = occ.item.copy()
         for r in range(occ.anchor[0], occ.anchor[0] + occ.h):
             for c in range(occ.anchor[1], occ.anchor[1] + occ.w):
-                # bien nettoyer TOUTES les cellules
                 self.cells[r][c].occupier = None
                 self.cells[r][c].item = None
         return item_copy
@@ -833,11 +769,9 @@ class Inventory():
         - non-stackable multi-slot: recherche un emplacement et place
         Si placement partiel (stackable), la quantité restante est laissée dans item.amount.
         """
-        # work on a mutable remaining amount for stackable items
         if getattr(item, "stackable", False):
             remaining = getattr(item, "amount", 1)
 
-            # d'abord, essayer de compléter des stacks existants
             for row in self.cells:
                 for cell in row:
                     if cell.item is not None and cell.item.name == item.name and getattr(cell.item, "stackable", False) and cell.occupier is None:
@@ -847,13 +781,10 @@ class Inventory():
                             remaining -= can_add
                             if remaining == 0:
                                 return True
-
-            # ensuite, essayer de placer dans des cellules vides
             for row in self.cells:
                 for cell in row:
                     if cell.item is None and cell.occupier is None:
                         place_amount = min(self.stack_limit, remaining)
-                        # on crée une copie stockée dans la cellule pour représenter la pile
                         new_item = item.copy() if hasattr(item, "copy") else item
                         new_item.amount = place_amount
                         cell.item = new_item
@@ -861,11 +792,9 @@ class Inventory():
                         if remaining == 0:
                             return True
 
-            # si on arrive ici, on a placé quelque chose (peut-être) mais il reste des unités
             item.amount = remaining
             return False
 
-        # non stackable 1x1
         if hasattr(item, "size") and item.size == (1, 1):
             for row in self.cells:
                 for cell in row:
@@ -874,7 +803,6 @@ class Inventory():
                         return True
             return False
 
-        # multi-slot non-stackable
         place = self.find_space_for(item)
         if place is not None:
             r, c = place
@@ -890,7 +818,6 @@ class Inventory():
             for c, cell in enumerate(row):
                 if cell.occupier is not None:
                     occ = cell.occupier
-                    # only add anchor once
                     if occ.anchor == (r, c):
                         item_list.append(occ.item.copy())
                 elif cell.item is not None:
@@ -983,7 +910,6 @@ class Inventory():
                 -1, -1, self
             )
 
-        # search shading / highlight
         if text != "":
             for i, row in enumerate(self.cells):
                 for j, cell in enumerate(row):
@@ -1013,11 +939,9 @@ class Inventory_Engine():
         for i, inventory in enumerate(self.inventory_list):
             inventory.update(i, self.inventory_list, cursor, text)
 
-        # cooldown global pour empêcher le swap continu
         if cursor.cooldown > 0:
             cursor.cooldown -= 1
 
-# Search bar class *Xini
 def debug_print_grid(inv, top_r=0, top_c=0, rows=6, cols=10):
     for r in range(top_r, min(inv.rows, top_r+rows)):
         line = []
@@ -1114,8 +1038,6 @@ def main():
     search_bar = Search_Bar(21, 50, 600, 3)
     cursor = Cursor()
 
-    # create a 2x2 fish example and add it to the first inventory (ensure ITEM_TEXTURES has "big_fish")
-    # si tu n'as pas l'image big_fish: crée-la dans assets/items/big_fish.png
     if "big_fish" in ITEM_TEXTURES:
         big_fish = Item("big_fish", 1, size=(2,1), rarity="rare")
     if "Poisson_Monstre_Marin" in ITEM_TEXTURES:
@@ -1132,7 +1054,6 @@ def main():
             if event.type == pygame.KEYDOWN:
                 search_bar.handle_event(event)
                 if event.key == pygame.K_r:
-                    # rotate only if an item is held and it's not stackable (or size != (1,1))
                     if cursor.item is not None and not getattr(cursor.item, "stackable", False):
                         cursor.item.rotate()                
 
@@ -1144,13 +1065,10 @@ def main():
         if keys[K_w] and search_bar.clicked == 0:
             inventory_engine.inventory_list[0].add_item(
                 Weapon(random.choice(list(WEAPONS.keys())), 1))
-        # dans la boucle principale, là où tu gères keys = pygame.key.get_pressed()
         if keys[K_b] and search_bar.clicked == 0:
-            # crée une instance fraîche à chaque appui
             fish = Item("big_fish", 1, size=(2,1), rarity="rare", stackable=False)
             inventory_list[0].add_item(fish)
         if keys[K_d] and search_bar.clicked == 0:
-            # crée une instance fraîche à chaque appui
             fish = Item("Poisson_Bar", 1, size=(1,1), rarity="Commun", stackable=False)
             inventory_list[0].add_item(fish)       
                  

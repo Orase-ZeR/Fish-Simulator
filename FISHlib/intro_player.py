@@ -80,7 +80,6 @@ class Intro:
 
             screen.fill((0,0,0))
 
-            # titre en haut
             reserved_top = 0
             if title:
                 title_surf = title_font.render(title, True, (255,255,255))
@@ -88,11 +87,9 @@ class Intro:
                 reserved_top = 50 + title_surf.get_height() + 20
                 screen.blit(title_surf, ((screen_width - title_surf.get_width()) // 2, 50))
 
-            # texte centré sous titre
             cur_lines = pages[page_idx] if page_idx < total_pages else []
             Intro.render_multiline(screen, font, cur_lines, center_vertical=True, reserved_top=reserved_top)
 
-            # petit texte bas
             w, h = screen.get_size()
             page_text = f"Page {page_idx+1}/{total_pages} - [clic / espace / suivant]"
             page_surf = small_font.render(page_text, True, (180,180,180))
@@ -101,6 +98,5 @@ class Intro:
             pygame.display.flip()
             clock.tick(60)
 
-        # fermer proprement si écran temporaire créé
         if created_screen:
             pygame.display.quit()

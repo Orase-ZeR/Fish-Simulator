@@ -20,11 +20,11 @@ class Quest:
             self.name_quest = ""
         
     
-    def creer_quest(self, name_quest:str): #Sert a creer la quete faut juste le nom que tu trouve dans quests.json
+    def creer_quest(self, name_quest:str): 
         self.quests = {name_quest: {"description": self.liste_quests[name_quest]["description_quest"], "item_required": self.liste_quests[name_quest]["required_items_quest"], "reward_quest": self.liste_quests[name_quest]["reward_quests"], "finish":False}}
         self.name_quest = name_quest
 
-    def verif_objet(self, objet:str): # A apl a chaque fois que un item est ramasser, la fonction verif si l'item fait parti des quetes et maj automatiquement l'affichage dans le jeu     
+    def verif_objet(self, objet:str): 
         for quest in self.quests:
             for item in self.quests[quest]["item_required"]:
                 if item[0] == objet:
@@ -34,7 +34,7 @@ class Quest:
         
                  
     
-    def __check_quest(self): # Ne jamais apl cette fonction! Elle verif si la quete est complete, si tu veux savoir si la quete est fini tu fais !!"  if quest.quests[quest.name_quest]["finish"]:  "!!
+    def __check_quest(self): 
         for quest in self.quests:
             for item in self.quests[quest]["item_required"]:
                 if not item[1] == item[2]:
